@@ -1,6 +1,23 @@
-<h2>{{ hero.name | uppercase }} Details</h2> <!-- interpolation binding using uppercase pipe -->
-<div><span>id: </span>{{ hero.id }}</div> <!-- more interpolation binding -->
-<div>
-  <label for="name">Hero name: </label>
-  <input id="name" [(ngModel)]="hero.name" placeholder="name"> <!-- ngModel allows two way data binding -->
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <!-- use *ngFor (repeater directive) to loop through a list property (heroes) and access each element (hero) of the list -->
+  <!-- the li element (host element) will be repeated for each item in the list -->
+  <li *ngFor="let hero of heroes">
+    <!-- use event binding to bind a click event to the button, when the button is clicked run the expression "..." -->
+    <!-- the method onSelect is defined in the function -->
+    <!-- class binding add/removes a class conditionally - this time the class "selected" is only applied to a button when the hero is the selected hero -->
+    <button type="button" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
+      <span class="badge">{{ hero.id }}</span> <!-- interpolation binding -->
+      <span class="name">{{ hero.name }}</span>
+    </button>
+  </li>
+</ul>
+
+<div *ngIf="selectedHero"> <!-- *ngIf directive means the div element is only rendered when the property (selectedHero) is not undefined -->
+  <h2>{{ selectedHero.name | uppercase }} Details</h2> <!-- interpolation binding using uppercase pipe -->
+  <div><span>id: </span>{{ selectedHero.id }}</div> <!-- more interpolation binding -->
+  <div>
+    <label for="name">Hero name: </label>
+    <input id="name" [(ngModel)]="selectedHero.name" placeholder="name"> <!-- ngModel allows two way data binding -->
+  </div>
 </div>
