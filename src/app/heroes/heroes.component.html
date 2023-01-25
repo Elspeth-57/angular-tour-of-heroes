@@ -13,11 +13,6 @@
   </li>
 </ul>
 
-<div *ngIf="selectedHero"> <!-- *ngIf directive means the div element is only rendered when the property (selectedHero) is not undefined -->
-  <h2>{{ selectedHero.name | uppercase }} Details</h2> <!-- interpolation binding using uppercase pipe -->
-  <div><span>id: </span>{{ selectedHero.id }}</div> <!-- more interpolation binding -->
-  <div>
-    <label for="name">Hero name: </label>
-    <input id="name" [(ngModel)]="selectedHero.name" placeholder="name"> <!-- ngModel allows two way data binding -->
-  </div>
-</div>
+<!-- call the child component HeroDetailComponent at the end of the HeroComponent -->
+<!-- bind (property bind) the selectedHero property from HeroComponent to the hero property in HeroDetailComponent -->
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>

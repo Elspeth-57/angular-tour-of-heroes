@@ -12,7 +12,7 @@ export class HeroesComponent implements OnInit {
   // making a property for this data means it is now accessible for binding in the template
 
   selectedHero?: Hero; // using the imported Hero interface to create a property that may (?) hold a Hero interface but starts undefined
-  onSelect(hero: Hero): void { // onSelect method returns nothing (type void) and takes in an object of type Hero
+  onSelect(hero: Hero): void { // onSelect method returns nothing (type void) and takes in a parameter of object type Hero
     this.selectedHero = hero; // changes the value of the component's property (this.selectedHero) when the method is called
   }
 
