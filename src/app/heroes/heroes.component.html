@@ -1,0 +1,6 @@
+<h2>{{ hero.name | uppercase }} Details</h2> <!-- interpolation binding using uppercase pipe -->
+<div><span>id: </span>{{ hero.id }}</div> <!-- more interpolation binding -->
+<div>
+  <label for="name">Hero name: </label>
+  <input id="name" [(ngModel)]="hero.name" placeholder="name"> <!-- ngModel allows two way data binding -->
+</div>
