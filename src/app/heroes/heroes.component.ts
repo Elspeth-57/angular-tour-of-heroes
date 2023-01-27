@@ -12,7 +12,7 @@ export class HeroesComponent implements OnInit {
   // create a property, as a currently empty array, that will be an array of object types Hero - it is available for binding in the template
   heroes: Hero[] = [];
 
-  selectedHero?: Hero; // using the imported Hero interface to create a property that may (?) hold a Hero interface but starts undefined
+  // selectedHero?: Hero; // using the imported Hero interface to create a property that may (?) hold a Hero interface but starts undefined
 
   /**
    * Function called when this component, HeroesComponent, is being created.
@@ -49,9 +49,9 @@ export class HeroesComponent implements OnInit {
    * @param hero - The hero object for the button pressed, object type Hero
    * @returns - Nothing
    */
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`)
-  }
+  // onSelect(hero: Hero): void {
+  //   this.selectedHero = hero;
+  //   this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`)
+  // }
 
 }

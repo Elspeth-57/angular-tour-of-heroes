@@ -3,16 +3,22 @@
   <!-- use *ngFor (repeater directive) to loop through a list property (heroes) and access each element (hero) of the list -->
   <!-- the li element (host element) will be repeated for each item in the list -->
   <li *ngFor="let hero of heroes">
-    <!-- use event binding to bind a click event to the button, when the button is clicked run the expression "..." -->
-    <!-- the method onSelect is defined in the function -->
-    <!-- class binding add/removes a class conditionally - this time the class "selected" is only applied to a button when the hero is the selected hero -->
+    <!-- For examples on class binding and event binding:
+     use event binding to bind a click event to the button, when the button is clicked run the expression "..."
+     the method onSelect is defined in the function
+     class binding add/removes a class conditionally - this time the class "selected" is only applied to a button when the hero is the selected hero
     <button type="button" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
-      <span class="badge">{{ hero.id }}</span> <!-- interpolation binding -->
+      <span class="badge">{{ hero.id }}</span> interpolation binding
       <span class="name">{{ hero.name }}</span>
     </button>
+    -->
+    <!-- Each li element contains a link for a hero to the specific hero detail page using the routerLink directive -->
+    <a routerLink="/detail/{{ hero.id }}">
+      <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+    </a>
   </li>
 </ul>
 
 <!-- call the child component HeroDetailComponent at the end of the HeroComponent -->
 <!-- bind (property bind) the selectedHero property from HeroComponent to the hero property in HeroDetailComponent -->
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+<!--<app-hero-detail [hero]="selectedHero"></app-hero-detail>-->

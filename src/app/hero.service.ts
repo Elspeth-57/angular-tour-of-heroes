@@ -29,6 +29,17 @@ export class HeroService {
     return heroes;
   }
 
+  /**
+   * Method to return an Observable with a single hero object, found in the HEROES mock data.
+   * A message will be added using messageService as well.
+   * @param id - The id of the hero you are looking for.
+   */
+  getHero(id: number): Observable<Hero> {
+    const hero = HEROES.find(h => h.id === id)!;
+    this.messageService.add(`Hero Service: fetched hero id=${id}`);
+    return of(hero);
+  }
+
   // getHeroes(): Hero[] { // synchronous
   //   return HEROES;
   // }
