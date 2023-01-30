@@ -38,8 +38,17 @@ export class HeroDetailComponent implements OnInit {
       .subscribe(hero => this.hero = hero);
   }
 
+  /** Method to go back to the previous page */
   goBack(): void {
     this.location.back(); // use the injected location service to move back one page
+  }
+
+  /** Function to call a function from heroService to update a hero on the server and wait until completed, then go back */
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
+    }
   }
 
 }

@@ -15,7 +15,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 // You can make the service available to the dependency injection system by registering a provider (see above)
 export class HeroService {
 
-  private heroesUrl = 'api/heroes/'; // URL to web api
+  private heroesUrl = 'api/heroes'; // URL to web api
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   /**
    * Method to return the HEROES, an array of mock hero objects.
@@ -52,14 +56,31 @@ export class HeroService {
    * @param id - The id of the hero you are looking for.
    */
   getHero(id: number): Observable<Hero> {
-    const hero = HEROES.find(h => h.id === id)!;
-    this.log(`fetched hero id=${id}`);
-    return of(hero);
+    // const hero = HEROES.find(h => h.id === id)!;
+    // this.log(`fetched hero id=${id}`);
+    // return of(hero);
+    const url = `${this.heroesUrl}/${id}`; // create a url to get a single hero data using the id
+    return this.http.get<Hero>(url) // send a request using HttpClient
+      .pipe(
+        tap(_ => this.log(`fetched hero id=${id}`)), // use log() to add a message to message array
+        // use same function to handle any errors, with no safe value to be returned instead
+        catchError(this.handleError<Hero>('get hero by id'))
+      );
   }
 
-  // getHeroes(): Hero[] { // synchronous
-  //   return HEROES;
-  // }
+  /**
+   * A function to permanently update the data on the "server".
+   * @param hero The updated hero object with changes.
+   */
+  updateHero(hero: Hero): Observable<any> {
+    // A put request rather than a get
+    // Three  for put(): the server url, data to update, options (such as headers)
+    return this.http.put(this.heroesUrl, hero, this.httpOptions)
+      .pipe(
+        tap(_ => this.log(`updated hero id=${hero.id}`)),
+        catchError(this.handleError<any>('updateHero'))
+      );
+  }
 
   /** Log a HeroService message with the MessageService */
   private log(message: string): void {
