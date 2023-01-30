@@ -12,8 +12,6 @@ export class HeroesComponent implements OnInit {
   // create a property, as a currently empty array, that will be an array of object types Hero - it is available for binding in the template
   heroes: Hero[] = [];
 
-  // selectedHero?: Hero; // using the imported Hero interface to create a property that may (?) hold a Hero interface but starts undefined
-
   /**
    * Function called when this component, HeroesComponent, is being created.
    * @param heroService - Defines private heroService property and identifies it as a HeroService injection site.
@@ -39,9 +37,29 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => this.heroes = heroes);
     // .subscribe waits for the Observable, then passes the array (heroes) into the callback to assign to the component property this.heroes
   }
-  // getHeroes(): void { synchronous
-  //   this.heroes = this.heroService.getHeroes();
-  // }
+
+  /**
+   * Function to take a name from an input and create a new hero on the server.
+   * @param name The name of the new hero.
+   */
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; } // check the name isn't blank
+    this.heroService.addHero({ name } as Hero )
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+  /**
+   * Function to delete a hero when a button is pressed and send a message to do ot on the server.
+   * @param hero The hero object you are deleting.
+   */
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero.id)
+      .subscribe();
+  }
 
   /**
    * When a button for a hero is pressed it changes the component's property selectedHero to this hero.
